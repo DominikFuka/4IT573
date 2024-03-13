@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple server with counter</title>
 </head>
+
 <body>
-    <h1>Usage:</h1>
-    <p>User can increase internal counter by 1 when accessing <a href="http://localhost:3000/increase">http://localhost:3000/increase</a> and </p>
+    <h2>Usage:</h2>
+    <p>Access <a href="http://localhost:3000/read">http://localhost:3000/read</a> to see the current state of counter.
+    </p>
+    <p>Access <a href="http://localhost:3000/increase">http://localhost:3000/increase</a> to increase internal counter
+        by 1.</p>
+    <p>Access <a href="http://localhost:3000/decrease">http://localhost:3000/decrease</a> to decrease internal counter
+        by 1.</p>
+    <p>Any other request will lead back to this page.</p>
 </body>
+
 </html>
