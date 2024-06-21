@@ -1,9 +1,11 @@
-module.exports = {
+const config = {
   development: {
-    client: 'sqlite3',
+    client: "sqlite3",
     connection: {
-      filename: './collectibles.sqlite',
+      filename: "./collectibles.sqlite",
     },
     useNullAsDefault: true,
   },
 };
+
+export default config;
