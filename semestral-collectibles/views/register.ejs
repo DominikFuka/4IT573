@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Register</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <%- include('partials/header') %>
-  <h1>Register</h1>
-  <form action="/register" method="post">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <label for="password2">Confirm Password</label>
-    <input type="password" name="password2" id="password2" required>
-    <button type="submit">Register</button>
-  </form>
-  <% if (typeof error !== 'undefined') { %>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <h1>Register</h1>
+    <form action="/register" method="post">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required />
+      <label for="password2">Confirm Password</label>
+      <input type="password" name="password2" id="password2" required />
+      <button type="submit">Register</button>
+    </form>
+    <% if (typeof error !== 'undefined') { %>
     <p><%= error %></p>
-  <% } %>
-</body>
+    <% } %>
+  </body>
 </html>
