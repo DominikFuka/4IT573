@@ -7,6 +7,7 @@ import {
   logout,
 } from "../controllers/authController.js";
 import itemRoutes from "./itemRoutes.js";
+import adminRoutes from "./adminRoutes.js";
 
 const router = express.Router();
 
@@ -23,5 +24,8 @@ router.get("/logout", logout);
 
 // Include item routes
 router.use(itemRoutes);
+
+// Include admin routes
+router.use(adminRoutes);
 
 export default router;

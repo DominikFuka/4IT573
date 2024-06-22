@@ -3,6 +3,9 @@
     <a href="/">Home</a>
     <% if (session && session.userId) { %>
       <a href="/items">My Items</a>
+      <% if (session.admin) { %>
+        <a href="/admin/items">Admin: All Items</a>
+      <% } %>
       <a href="/logout">Logout</a>
       <a href="/dashboard">Dashboard</a>
     <% } else { %>

@@ -4,8 +4,8 @@ import knexConfig from "../knexfile.js";
 const db = knex(knexConfig.development);
 
 // Create a new user
-export const createUser = async (username, password) => {
-  return await db("users").insert({ username, password });
+export const createUser = async (username, password, isAdmin = false) => {
+  return await db("users").insert({ username, password, admin: isAdmin });
 };
 
 // Find a user by username

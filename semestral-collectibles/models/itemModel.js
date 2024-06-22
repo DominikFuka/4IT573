@@ -8,6 +8,11 @@ export const createItem = async (name, description, ownerId) => {
   return await db("items").insert({ name, description, owner_id: ownerId });
 };
 
+// Find all items
+export const findAllItems = async () => {
+  return await db("items").select("*");
+};
+
 // Find items by owner ID
 export const findItemsByOwnerId = async (ownerId) => {
   return await db("items").where({ owner_id: ownerId });
