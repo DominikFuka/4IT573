@@ -8,6 +8,7 @@ import {
 } from "../controllers/authController.js";
 import itemRoutes from "./itemRoutes.js";
 import adminRoutes from "./adminRoutes.js";
+import transferRequestRoutes from "./transferRequestRoutes.js";
 
 const router = express.Router();
 
@@ -27,5 +28,8 @@ router.use(itemRoutes);
 
 // Include admin routes
 router.use(adminRoutes);
+
+// Include transfer request routes
+router.use(transferRequestRoutes);
 
 export default router;

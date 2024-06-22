@@ -27,3 +27,10 @@ export const findItemById = async (id) => {
 export const deleteItemById = async (id) => {
   return await db("items").where({ id }).del();
 };
+
+// Update item owner
+export const updateItemOwner = async (itemId, newOwnerId) => {
+  return await db("items")
+    .where({ id: itemId })
+    .update({ owner_id: newOwnerId });
+};

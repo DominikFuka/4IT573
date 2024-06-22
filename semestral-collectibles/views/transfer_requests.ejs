@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Transfer Requests</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <h1>Transfer Requests</h1>
+    <ul>
+      <% requests.forEach(request => { %>
+      <li>
+        <strong>Item ID: <%= request.item_id %></strong>
+        <form
+          action="/transfer-request/respond"
+          method="post"
+          style="display: inline"
+        >
+          <input type="hidden" name="requestId" value="<%= request.id %>" />
+          <button type="submit" name="accepted" value="true">Accept</button>
+          <button type="submit" name="accepted" value="false">Reject</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
