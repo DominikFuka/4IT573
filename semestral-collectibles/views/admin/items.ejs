@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>All Items</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-  <%- include('../partials/header') %>
-  <h1>All Items</h1>
-  <ul>
-    <% items.forEach(item => { %>
+  <head>
+    <meta charset="UTF-8" />
+    <title>All Items</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+    <h1>All Items</h1>
+    <ul>
+      <% items.forEach(item => { %>
       <li>
-        <strong><%= item.name %></strong>: <%= item.description %> (Owned by: <%= item.owner_id %>)
+        <strong><%= item.name %></strong>: <%= item.description %> (Owned by:
+        <%= item.owner_id %>)
+        <form
+          action="/admin/items/delete/<%= item.id %>"
+          method="post"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
       </li>
-    <% }) %>
-  </ul>
-</body>
+      <% }) %>
+    </ul>
+  </body>
 </html>
