@@ -3,6 +3,7 @@ import {
   findItemsByOwnerId,
   deleteItemById,
 } from "../models/itemModel.js";
+import { broadcast } from "../server.js";
 
 /**
  * Show all items that belong to the logged-in user.
@@ -13,11 +14,12 @@ export const showItems = async (req, res) => {
 };
 
 /**
- * Add new item to the logged-in user.
+ * Add new item to the logged-in user and send broadcast about it.
  */
 export const addItem = async (req, res) => {
   const { name, description } = req.body;
-  await createItem(name, description, req.session.userId);
+  const newItem = await createItem(name, description, req.session.userId);
+  broadcast({ type: "NEW_ITEM", item: newItem }); // broadcast to all clients
   res.redirect("/items");
 };
 

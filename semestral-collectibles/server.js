@@ -5,6 +5,9 @@ import { createServer } from "http";
 import WebSocket from "ws";
 import knexConfig from "./knexfile.js";
 import authRoutes from "./routes/authRoutes.js";
+import itemRoutes from "./routes/itemRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import transferRequestRoutes from "./routes/transferRequestRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { requireAuth } from "./middleware/auth.js";
 import { sessionToLocals } from "./middleware/sessionToLocals.js";
@@ -30,25 +33,22 @@ app.use(
   })
 );
 
-// Add session to res.locals
+// add session to res.locals
 app.use(sessionToLocals);
 
-// Public routes
+// use routes
 app.use("/", authRoutes);
+app.use("/", itemRoutes);
+app.use("/", adminRoutes);
+app.use("/", transferRequestRoutes);
 
-// Protected routes
-app.get("/dashboard", requireAuth, (req, res) => {
-  res.send("Welcome to the dashboard!");
-});
-
-// Use the error handling middleware
+// error handling middleware
 app.use(errorHandler);
 
+// websocket connection
 wss.on("connection", (socket) => {
   console.log("Client connected");
-  socket.on("message", (message) => {
-    console.log(`Received message => ${message}`);
-  });
+
   socket.on("close", () => {
     console.log("Client disconnected");
   });
@@ -57,3 +57,14 @@ wss.on("connection", (socket) => {
 server.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });
+
+// broadcast function for websockets
+const broadcast = (data) => {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+};
+
+export { broadcast };

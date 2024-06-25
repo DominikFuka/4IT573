@@ -10,7 +10,12 @@ const db = knex(knexConfig.development);
  * @param {Number} ownerId
  */
 export const createItem = async (name, description, ownerId) => {
-  return await db("items").insert({ name, description, owner_id: ownerId });
+  const [id] = await db("items").insert({
+    name,
+    description,
+    owner_id: ownerId,
+  });
+  return await findItemById(id); // return new item
 };
 
 /**

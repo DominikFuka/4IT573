@@ -8,7 +8,7 @@
   <body>
     <%- include('../partials/header') %>
     <h1>All Items</h1>
-    <ul>
+    <ul id="items-list">
       <% items.forEach(item => { %>
       <li>
         <strong><%= item.name %></strong>: <%= item.description %> (Owned by:
@@ -23,5 +23,25 @@
       </li>
       <% }) %>
     </ul>
+    <script>
+      const itemsList = document.getElementById("items-list");
+      const socket = new WebSocket(`ws://${window.location.host}`);
+
+      socket.onmessage = function (event) {
+        const message = JSON.parse(event.data);
+
+        if (message.type === "NEW_ITEM") {
+          const item = message.item;
+          const newItem = document.createElement("li");
+          newItem.innerHTML = `
+          <strong>${item.name}</strong>: ${item.description} (Owned by: ${item.owner_id})
+          <form action="/admin/items/delete/${item.id}" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        `;
+          itemsList.appendChild(newItem);
+        }
+      };
+    </script>
   </body>
 </html>
