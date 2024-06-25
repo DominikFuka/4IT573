@@ -12,24 +12,25 @@ import transferRequestRoutes from "./transferRequestRoutes.js";
 
 const router = express.Router();
 
-// Root route
+// root route
 router.get("/", (req, res) => {
   res.render("index", { session: req.session });
 });
 
+// routes to controller actions
 router.get("/register", showRegister);
 router.post("/register", register);
 router.get("/login", showLogin);
 router.post("/login", login);
 router.get("/logout", logout);
 
-// Include item routes
+// include item routes
 router.use(itemRoutes);
 
-// Include admin routes
+// include admin routes
 router.use(adminRoutes);
 
-// Include transfer request routes
+// include transfer request routes
 router.use(transferRequestRoutes);
 
 export default router;
