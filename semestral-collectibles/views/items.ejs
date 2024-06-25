@@ -30,15 +30,15 @@
       <% }) %>
     </ul>
     <script>
-      const itemsList = document.getElementById('items-list');
+      const itemsList = document.getElementById("items-list");
       const socket = new WebSocket(`ws://${window.location.host}`);
 
-      socket.onmessage = function(event) {
+      socket.onmessage = function (event) {
         const message = JSON.parse(event.data);
 
-        if (message.type === 'DELETE_ITEM') {
+        if (message.type === "DELETE_ITEM") {
           const itemElement = document.getElementById(`item-${message.itemId}`);
-          if (itemElement && message.ownerId === <%= session.userId %>) {
+          if (itemElement && message.ownerId === "<%= session.userId %>") {
             itemsList.removeChild(itemElement);
           }
         }
