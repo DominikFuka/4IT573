@@ -15,9 +15,9 @@
       <input type="text" name="description" id="description" />
       <button type="submit">Add Item</button>
     </form>
-    <ul>
+    <ul id="items-list">
       <% items.forEach(item => { %>
-      <li>
+      <li id="item-<%= item.id %>">
         <strong><%= item.name %></strong>: <%= item.description %>
         <form
           action="/items/delete/<%= item.id %>"
@@ -26,14 +26,23 @@
         >
           <button type="submit">Delete</button>
         </form>
-        <form action="/transfer-request" method="post" style="display: inline">
-          <input type="hidden" name="itemId" value="<%= item.id %>" />
-          <label for="toUserId">Transfer to User ID:</label>
-          <input type="text" name="toUserId" required />
-          <button type="submit">Transfer</button>
-        </form>
       </li>
       <% }) %>
     </ul>
+    <script>
+      const itemsList = document.getElementById('items-list');
+      const socket = new WebSocket(`ws://${window.location.host}`);
+
+      socket.onmessage = function(event) {
+        const message = JSON.parse(event.data);
+
+        if (message.type === 'DELETE_ITEM') {
+          const itemElement = document.getElementById(`item-${message.itemId}`);
+          if (itemElement && message.ownerId === <%= session.userId %>) {
+            itemsList.removeChild(itemElement);
+          }
+        }
+      };
+    </script>
   </body>
 </html>
